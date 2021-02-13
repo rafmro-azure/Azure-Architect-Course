@@ -4,21 +4,25 @@
   "parameters": {
   },
   "variables": {
-    "location": "[resourceGroup().location]",
-    "addressPrefix": "10.1.1.0/24",
-    "subnet1Name": "vanl-pd-neu-rg-main-7001-neu-vnet-001-subnet-01",
-    "subnet2Name": "vanl-pd-neu-rg-main-7001-neu-vnet-001-subnet-02",
-    "subnet1Prefix": "10.1.1.0/26",
-    "subnet2Prefix": "10.1.1.64/26",
+    "apiVersion": "2015-06-15",
+    "RGname": "[resourceGroup().name]",
+    "RGlocation": "[resourceGroup().location]",
+    "ResourceLocation": "australiacentral",
     "virtualNetworkName": "vanl-pd-neu-rg-main-7001-neu-vnet-001",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+    "addressPrefix": "10.1.1.0/24",
+    "subnet1Name": "[concat(variables('virtualNetworkName'), '-subnet-01')]",
     "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]",
+    "subnet1Prefix": "10.1.1.0/26",
+    "subnet2Name": "[concat(variables('virtualNetworkName'), '-subnet-02')]",
     "subnet2Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet2Name'))]",
-    "apiVersion": "2015-06-15",
-    "sharedBaseUrl" : "https://raw.githubusercontent.com/vicperdana/azure-quickstart-templates/master/windows-iis-sql-linked-multivm/nested/",
-    "secondTemplate" : {
-      "templateUrl" : "[concat(variables('sharedBaseUrl'),'azuredeploy-web.json')]",
-      "paramUrl" : "[concat(variables('sharedBaseUrl'),'azuredeploy-web.parameters.json')]"
+    "subnet2Prefix": "10.1.1.64/26",
+    "sharedBaseUrl" : "https://github.com/rafmro-azure/Azure-Architect-Course/blob/main/03_week/",
+    "server1Template" : {
+        "templateUrl" : "[concat(variables('sharedBaseUrl'),'3.2_host_template.json')]",
+    },
+    "server2Template" : {
+        "templateUrl" : "[concat(variables('sharedBaseUrl'),'3.2_host_template.json')]",
     }
   },
   "resources": [
@@ -51,7 +55,7 @@
     },
     {
       "apiVersion": "2015-01-01",
-      "name": "webserversLinked",
+      "name": "server1Template",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
@@ -59,12 +63,57 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('secondTemplate').templateUrl]",
+          "uri": "[variables('server1Template').templateUrl]",
           "contentVersion": "1.0.0.0"
         },
-        "parametersLink": {
-          "uri": "[variables('secondTemplate').paramUrl]",
+        "parameters": {
+            "virtualMachineName": {
+                "value": "[concat(variables('RGname'),'-sin-vm-lx18-001')]"
+            },
+            "virtualMachineRG": {
+                "value": "[variables('RGname')]"
+            },
+            "location": {
+                "value": "[variables('ResourceLocation')]"
+            },
+            "virtualNetworkName": {
+                "value": "[variables('virtualNetworkName')]"
+            },
+            "subnetName": {
+                "value": "[variables('subnet1Name')]"
+            }
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "name": "server2Template",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('server2Template').templateUrl]",
           "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+            "virtualMachineName": {
+                "value": "[concat(variables('RGname'),'-sin-vm-lx18-002')]"
+            },
+            "virtualMachineRG": {
+                "value": "[variables('RGname')]"
+            },
+            "location": {
+                "value": "[variables('ResourceLocation')]"
+            },
+            "virtualNetworkName": {
+                "value": "[variables('virtualNetworkName')]"
+            },
+            "subnetName": {
+                "value": "[variables('subnet2Name')]"
+            }
         }
       }
     }
