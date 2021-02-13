@@ -1,0 +1,121 @@
+based on 
+https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming
+https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
+
+Assumptions:
+  The names of items in Azure are subject to restrictions, so the convention shown here tries to create 
+  relatively unique names at the expense of their informational value. Additional informative values can 
+  be provided by the "description" field or tags.
+
+schema for containers:
+    project-environment-region-containertype-containerusage-instance
+
+Examples:
+        vanl-p-neu-rg-main-7001
+        infr-t-sin-mg-copy-010a
+        infr-e-scu-po-drcp-c002
+instance number is unique indep
+
+schema for resources in containers:
+    "container-instance-name"-region-resourcetype-sku/image/tier/desc-instance
+
+    Examples:
+        vanl-p-neu-rg-main-7001-ace-vm-lx18-001
+        vanl-p-neu-rg-main-7001-ace-vnet-001
+        
+schema for logical partition of resources :
+        "container-instance-name"-partitionname-instance
+        
+    Examples:
+        vanl-p-neu-rg-main-7001-ace-vnet-001-subnet-A
+
+Default schema where symbol "-" cant be used:
+
+  "project""environment""region""resourcetype""serviceinstance"
+
+    Examples:
+        vanlpneurgst001
+        infrtsinrgst011
+
+Used abbreviations:
+    $ProjectCodeMap = @{
+        Vanilla =     @('vanill', 'vanl')
+        Magenta =     @('magent', 'magt')
+        Orange =      @('orange', 'orng')
+        Builder =     @('buildr', 'bldr')
+        MainInfrastructure =     @('infra', 'infr')
+    }
+
+    $EnvironmentCodeMap = @{
+        Development = 'e'
+        Test =        't'
+        Demo =        'm'
+        Production =  'p'
+    }
+    
+     $ContainerTypeCodeMap = @{
+        ManagementGroup =               'mg'
+        ResourceGroup =                 'rg'
+        PolicyDefinition =              'po'
+        ManagedIdentity =               'mi'
+        APImanagementserviceinstance =  'am'
+    }  
+     
+    $ContainerTypeCodeMap = @{
+        Main set of resources  =        'main'
+        Resources nedeed for DR =       'drcp'
+        Set of copied resources =       'copy'
+    }
+
+
+
+
+    $ResourceCodeMap = @{
+        Virtual machine =               @('vm', 'vm')
+        Availability set =              @('vmsset', 'vmss')
+        Service Fabric cluster =        @('sf', 'sf')
+        SQL Managed Instance =          @('sqlmit', 'sqlm')
+        Storage account =               @('st', 'st')
+        Key vault =                     @('kv', 'kv')
+        Recovery Services vault =       @('rvault', 'rsvt')
+        Managed disk (OS) =             @('osdisk', 'oshd')
+        Managed disk (data)	=           @('volume', 'dvol')
+        Virtual network =               @('vnet', 'vnet')
+        Network interface (NIC) =       @('vnic', 'vnic')
+        Public IP address =             @('pip', 'pip')
+        Application gateway =           @('appgtw', 'apgw')
+    }
+
+      $locationCodeMap = @{
+          australiacentral      = 'ace'
+          australiacentral2     = 'ac2'
+          australiaeast         = 'aea'
+          australiasoutheast    = 'ase'
+          brazilsouth           = 'brs'
+          canadacentral         = 'cdc'
+          canadaeast            = 'cde'
+          centralindia          = 'inc'
+          centralus             = 'usc'
+          eastasia              = 'eas'
+          eastus                = 'eus'
+          eastus2               = 'es2'
+          francecentral         = 'frc'
+          francesouth           = 'frs'
+          japaneast             = 'jps'
+          japanwest             = 'jpw'
+          koreacentral          = 'krc'
+          koreasouth            = 'krs'
+          northcentralus        = 'ncu'
+          northeurope           = 'neu'
+          southcentralus        = 'scu'
+          southeastasia         = 'sea'
+          southindia            = 'sin'
+          uksouth               = 'uks'
+          ukwest                = 'ukw'
+          westcentralus         = 'wcu'
+          westeurope            = 'weu'
+          westindia             = 'win'
+          westus                = 'wus'
+          westus2               = 'wu2'
+      }
+
