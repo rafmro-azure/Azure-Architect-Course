@@ -1,0 +1,72 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "addressPrefix": "10.1.1.0/24",
+    "subnet1Name": "vanl-pd-neu-rg-main-7001-neu-vnet-001-subnet-01",
+    "subnet2Name": "vanl-pd-neu-rg-main-7001-neu-vnet-001-subnet-02",
+    "subnet1Prefix": "10.1.1.0/26",
+    "subnet2Prefix": "10.1.1.64/26",
+    "virtualNetworkName": "vanl-pd-neu-rg-main-7001-neu-vnet-001",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]",
+    "subnet2Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet2Name'))]",
+    "apiVersion": "2015-06-15",
+    "sharedBaseUrl" : "https://raw.githubusercontent.com/vicperdana/azure-quickstart-templates/master/windows-iis-sql-linked-multivm/nested/",
+    "secondTemplate" : {
+      "templateUrl" : "[concat(variables('sharedBaseUrl'),'azuredeploy-web.json')]",
+      "paramUrl" : "[concat(variables('sharedBaseUrl'),'azuredeploy-web.parameters.json')]"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "[variables('apiVersion')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('virtualNetworkName')]",
+      "location": "[variables('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('subnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('subnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet2Prefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "name": "webserversLinked",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('secondTemplate').templateUrl]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[variables('secondTemplate').paramUrl]",
+          "contentVersion": "1.0.0.0"
+        }
+      }
+    }
+  ]
+}
