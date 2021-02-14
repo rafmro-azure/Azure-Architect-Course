@@ -15,18 +15,19 @@
             "type": "String"
         },
         "networkSecurityGroupRules": {
-            "type": "array",
             "defaultValue": [
                 {
-                    "ruleName": "SSH",
-                    "protocol": "TCP",
-                    "direction": "Inbound",
-                    "access": "Allow",
-                    "sourcePortRange": "*",
-                    "sourceAddressPrefix": "*",
-                    "destinationAddressPrefix": "*",
-                    "destinationPortRange": "22",
-                    "priority": 300
+                    "name": "SSH",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "22"
+                    }
                 }
             ]
         },
