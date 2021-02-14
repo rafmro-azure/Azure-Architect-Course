@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
   },
@@ -8,7 +8,7 @@
     "RGname": "[resourceGroup().name]",
     "RGlocation": "[resourceGroup().location]",
     "ResourceLocation": "australiacentral",
-    "virtualNetworkName": "vanl-pd-neu-rg-main-7001-neu-vnet-001",
+    "virtualNetworkName": "[concat(variables('RGname'), '-ace-vnet-001')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
     "addressPrefix": "10.1.1.0/24",
     "subnet1Name": "[concat(variables('virtualNetworkName'), '-subnet-01')]",
@@ -19,10 +19,10 @@
     "subnet2Prefix": "10.1.1.64/26",
     "sharedBaseUrl" : "https://github.com/rafmro-azure/Azure-Architect-Course/blob/main/03_week/",
     "server1Template" : {
-        "templateUrl" : "[concat(variables('sharedBaseUrl'),'3.2_host_template.json')]",
+        "templateUrl" : "[concat(variables('sharedBaseUrl'),'3.2_host_template.json')]"
     },
     "server2Template" : {
-        "templateUrl" : "[concat(variables('sharedBaseUrl'),'3.2_host_template.json')]",
+        "templateUrl" : "[concat(variables('sharedBaseUrl'),'3.2_host_template.json')]"
     }
   },
   "resources": [
@@ -30,7 +30,7 @@
       "apiVersion": "[variables('apiVersion')]",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[variables('virtualNetworkName')]",
-      "location": "[variables('location')]",
+      "location": "[variables('RGlocation')]",
       "properties": {
         "addressSpace": {
           "addressPrefixes": [

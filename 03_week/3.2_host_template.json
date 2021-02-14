@@ -1,5 +1,5 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "virtualMachineName": {
@@ -18,20 +18,20 @@
             "type": "String"
         },
         "adminPublicKey": {
-            "type": "SecureString"
+            "type": "SecureString",
             "defaultvalue": null
         }
     },
     "variables": {
         "virtualMachineComputerName": "[parameters('virtualMachineName')]",
-        "networkInterfaceName": "[concat(variables('virtualMachineName'), '-nic-01')]",
-        "networkSecurityGroupName": "[concat(variables('virtualMachineName'), '-nsg-01')]",
-        "publicIpAddressName": "[concat(variables('virtualMachineName'), '-nsg-01')]",
+        "networkInterfaceName": "[concat(parameters('virtualMachineName'), '-nic-01')]",
+        "networkSecurityGroupName": "[concat(parameters('virtualMachineName'), '-nsg-01')]",
+        "publicIpAddressName": "[concat(parameters('virtualMachineName'), '-pip-01')]",
         "publicIpAddressType": "Dynamic",
         "publicIpAddressSku": "Basic",
-        "osDiskType": "Standard_LRS"
-        "virtualMachineSize": "Standard_B2s"
-        "adminUsername": "[concat(variables('virtualMachineName'), '-root')]",
+        "osDiskType": "Standard_LRS",
+        "virtualMachineSize": "Standard_B2s",
+        "adminUsername": "[concat(parameters('virtualMachineName'), '-root')]",
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
@@ -45,7 +45,7 @@
             "dependsOn": [
                 "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]",
                 "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
-                "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName'))]"
+                "[concat('Microsoft.Network/publicIpAddresses/', variables('publicIpAddressName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -57,7 +57,7 @@
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIpAddress": {
-                                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', parameters('publicIpAddressName'))]"
+                                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', variables('publicIpAddressName'))]"
                             }
                         }
                     }
@@ -86,7 +86,7 @@
         {
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2019-02-01",
-            "name": "[parameters('publicIpAddressName')]",
+            "name": "[variables('publicIpAddressName')]",
             "location": "[parameters('location')]",
             "sku": {
                 "name": "[variables('publicIpAddressSku')]"
@@ -97,7 +97,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2020-12-01",
+            "apiVersion": "2019-07-01",
             "name": "[parameters('virtualMachineName')]",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -105,13 +105,13 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[parameters('virtualMachineSize')]"
+                    "vmSize": "[variables('virtualMachineSize')]"
                 },
                 "storageProfile": {
                     "osDisk": {
                         "createOption": "fromImage",
                         "managedDisk": {
-                            "storageAccountType": "[parameters('osDiskType')]"
+                            "storageAccountType": "[variables('osDiskType')]"
                         }
                     },
                     "imageReference": {
