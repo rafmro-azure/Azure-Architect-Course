@@ -89,7 +89,7 @@
             "name": "[variables('networkSecurityGroupName')]",
             "location": "[parameters('location')]",
             "properties": {
-                "securityRules": "[parameters('networkSecurityGroupRules')]"
+                "securityRules": "[variables('networkSecurityGroupRules')]"
             }
         },
         {
