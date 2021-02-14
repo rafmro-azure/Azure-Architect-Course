@@ -14,6 +14,22 @@
         "virtualNetworkName": {
             "type": "String"
         },
+        "networkSecurityGroupRules": {
+            "type": "array",
+            "defaultValue": [
+                {
+                    "ruleName": "SSH",
+                    "protocol": "TCP",
+                    "direction": "Inbound",
+                    "access": "Allow",
+                    "sourcePortRange": "*",
+                    "sourceAddressPrefix": "*",
+                    "destinationAddressPrefix": "*",
+                    "destinationPortRange": "22",
+                    "priority": 300
+                }
+            ]
+        },
         "subnetName": {
             "type": "String"
         },
@@ -32,23 +48,6 @@
         "osDiskType": "Standard_LRS",
         "virtualMachineSize": "Standard_B2s",
         "adminUsername": "azure-root",
-        "networkSecurityGroupRules": {
-            "value": [
-                {
-                    "name": "SSH",
-                    "properties": {
-                        "priority": 300,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "22"
-                    }
-                }
-            ]
-        },
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
@@ -85,12 +84,12 @@
         },
         {
             "type": "Microsoft.Network/networkSecurityGroups",
-            "apiVersion": "2020-07-01",
-            "name": "[variables('networkSecurityGroupName')]",
+            "apiVersion": "2017-10-01",
+            "name": "[parameters('networkSecurityGroupName')]",
             "location": "[parameters('location')]",
             "properties": {
-                "securityRules": "[variables('networkSecurityGroupRules')]"
-            }
+                "securityRules": "[parameters('networkSecurityGroupRules')]"
+            } 
         },
         {
             "type": "Microsoft.Network/publicIpAddresses",
