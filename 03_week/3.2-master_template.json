@@ -73,7 +73,7 @@
             "location": {
                 "value": "[variables('ResourceLocation')]"
             },
-            "adminPassword"{
+            "adminPassword": {
                 "value": "[parameters('secretkey')]"
             },
             "virtualNetworkName": {
@@ -105,7 +105,7 @@
             "virtualMachineRG": {
                 "value": "[variables('RGname')]"
             },
-            "adminPassword"{
+            "adminPassword": {
                 "value": "[parameters('secretkey')]"
             },
             "location": {
