@@ -17,9 +17,8 @@
     "subnetName": {
       "type": "String"
     },
-    "adminPublicKey": {
-      "type": "SecureString",
-      "defaultValue": ""
+    "adminPassword": {
+      "type": "String"
     }
   },
   "variables": {
@@ -150,17 +149,7 @@
         "osProfile": {
           "computerName": "[variables('virtualMachineComputerName')]",
           "adminUsername": "[variables('adminUsername')]",
-          "linuxConfiguration": {
-            "disablePasswordAuthentication": true,
-            "ssh": {
-              "publicKeys": [
-                {
-                  "path": "[concat('/home/', variables('adminUsername'), '/.ssh/authorized_keys')]",
-                  "keyData": "[parameters('adminPublicKey')]"
-                }
-              ]
-            }
-          }
+          "adminPassword": "[parameters('adminPassword')]"
         },
         "diagnosticsProfile": {
           "bootDiagnostics": {

@@ -2,6 +2,9 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+        "secretkey": {
+            "type": "String"
+        }
   },
   "variables": {
     "apiVersion": "2015-06-15",
@@ -70,6 +73,9 @@
             "location": {
                 "value": "[variables('ResourceLocation')]"
             },
+            "adminPassword"{
+                "value": "[parameters('secretkey')]"
+            },
             "virtualNetworkName": {
                 "value": "[variables('virtualNetworkName')]"
             },
@@ -98,6 +104,9 @@
             },
             "virtualMachineRG": {
                 "value": "[variables('RGname')]"
+            },
+            "adminPassword"{
+                "value": "[parameters('secretkey')]"
             },
             "location": {
                 "value": "[variables('ResourceLocation')]"
