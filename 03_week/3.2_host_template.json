@@ -72,14 +72,15 @@
             "name": "[variables('networkSecurityGroupName')]",
             "location": "[parameters('location')]",
             "properties": {
-                        "priority": 300,
+                        "description": "Allow SSH acccess",
                         "protocol": "TCP",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "22",
+                        "sourceAddressPrefix": "*",
+                        "destinationAddressPrefix": "*",
                         "access": "Allow",
                         "direction": "Inbound",
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "22"
+                        "priority": "300"
             }
         },
         {
