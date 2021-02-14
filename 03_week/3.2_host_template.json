@@ -19,7 +19,7 @@
         },
         "adminPublicKey": {
             "type": "SecureString",
-            "defaultvalue": null
+            "defaultValue": ""
         }
     },
     "variables": {
