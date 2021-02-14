@@ -15,6 +15,7 @@
             "type": "String"
         },
         "networkSecurityGroupRules": {
+            "type": "array",
             "defaultValue": [
                 {
                     "name": "SSH",
@@ -27,6 +28,19 @@
                         "sourcePortRange": "*",
                         "destinationAddressPrefix": "*",
                         "destinationPortRange": "22"
+                    }
+                },
+                {
+                    "name": "SSH2",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "222"
                     }
                 }
             ]
