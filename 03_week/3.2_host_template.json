@@ -31,7 +31,24 @@
         "publicIpAddressSku": "Basic",
         "osDiskType": "Standard_LRS",
         "virtualMachineSize": "Standard_B2s",
-        "adminUsername": "[concat(parameters('virtualMachineName'), '-root')]",
+        "adminUsername": "azure-root",
+        "networkSecurityGroupRules": {
+            "value": [
+                {
+                    "name": "SSH",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "22"
+                    }
+                }
+            ]
+        },
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
@@ -68,19 +85,11 @@
         },
         {
             "type": "Microsoft.Network/networkSecurityGroups",
-            "apiVersion": "2019-02-01",
+            "apiVersion": "2020-07-01",
             "name": "[variables('networkSecurityGroupName')]",
             "location": "[parameters('location')]",
             "properties": {
-                        "description": "Allow SSH acccess",
-                        "protocol": "TCP",
-                        "sourcePortRange": "*",
-                        "destinationPortRange": "22",
-                        "sourceAddressPrefix": "*",
-                        "destinationAddressPrefix": "*",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "priority": "300"
+                "securityRules": "[parameters('networkSecurityGroupRules')]"
             }
         },
         {
