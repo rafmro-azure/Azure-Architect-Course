@@ -85,7 +85,7 @@
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2017-10-01",
-            "name": "[parameters('networkSecurityGroupName')]",
+            "name": "[variables('networkSecurityGroupName')]",
             "location": "[parameters('location')]",
             "properties": {
                 "securityRules": "[parameters('networkSecurityGroupRules')]"
