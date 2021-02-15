@@ -1,0 +1,150 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+       "vaultName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the keyvault that contains the secret."
+            }
+        },
+        "secretName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the secret."
+            }
+        },
+        "vaultSubscription": {
+            "type": "string",
+            "defaultValue": "[subscription().subscriptionId]",
+            "metadata": {
+                "description": "The name of the subscription that contains the keyvault."
+            }
+        }
+  },
+  "variables": {
+    "apiVersion": "2015-06-15",
+    "RGname": "[resourceGroup().name]",
+    "RGlocation": "[resourceGroup().location]",
+    "ResourceLocation": "australiacentral",
+    "virtualNetworkName": "[concat(variables('RGname'), '-ace-vnet-001')]",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+    "addressPrefix": "10.1.1.0/24",
+    "subnet1Name": "[concat(variables('virtualNetworkName'), '-subnet-01')]",
+    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]",
+    "subnet1Prefix": "10.1.1.0/26",
+    "subnet2Name": "[concat(variables('virtualNetworkName'), '-subnet-02')]",
+    "subnet2Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet2Name'))]",
+    "subnet2Prefix": "10.1.1.64/26"
+  },
+  "resources": [
+    {
+      "apiVersion": "2019-09-01",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('virtualNetworkName')]",
+      "location": "[variables('ResourceLocation')]",
+      "dependsOn": [],
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('subnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('subnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet2Prefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "name": "[concat(variables('RGname'),'-sin-vm-lx18-001')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/rafmro-azure/Azure-Architect-Course/main/03_week/3.2_host_template.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+            "virtualMachineName": {
+                "value": "[concat(variables('RGname'),'-sin-vm-lx18-001')]"
+            },
+            "virtualMachineRG": {
+                "value": "[variables('RGname')]"
+            },
+            "location": {
+                "value": "[variables('ResourceLocation')]"
+            },
+            "adminPassword": {
+                "reference": {
+                    "keyVault": {
+                        "id": "[resourceId(parameters('vaultSubscription'), variables('RGname'), 'Microsoft.KeyVault/vaults', parameters('vaultName'))]"
+                    },
+                    "secretName": "[parameters('secretName')]"
+                }
+            },
+            "virtualNetworkName": {
+                "value": "[variables('virtualNetworkName')]"
+            },
+            "subnetName": {
+                "value": "[variables('subnet1Name')]"
+            }
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "name": "[concat(variables('RGname'),'-sin-vm-lx18-002')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/rafmro-azure/Azure-Architect-Course/main/03_week/3.2_host_template.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+            "virtualMachineName": {
+                "value": "[concat(variables('RGname'),'-sin-vm-lx18-002')]"
+            },
+            "virtualMachineRG": {
+                "value": "[variables('RGname')]"
+            },
+            "adminPassword": {
+                "reference": {
+                    "keyVault": {
+                        "id": "[resourceId(parameters('vaultSubscription'), variables('RGname'), 'Microsoft.KeyVault/vaults', parameters('vaultName'))]"
+                    },
+                    "secretName": "[parameters('secretName')]"
+                }
+            },
+            "location": {
+                "value": "[variables('ResourceLocation')]"
+            },
+            "virtualNetworkName": {
+                "value": "[variables('virtualNetworkName')]"
+            },
+            "subnetName": {
+                "value": "[variables('subnet2Name')]"
+            }
+        }
+      }
+    }
+  ]
+}
