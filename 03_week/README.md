@@ -14,7 +14,7 @@
 
 3.3 skipped due the unavailibility of extending free-trial for Premium AD
 
-3.4 
+3.4 templates from 3.2 modified to use secrets stored in KeyVaults.
     a. create Resource Group
         $RGname = "vanl-p-neu-rg-main-7003"
         az group create --name $RGname --location northeurope
