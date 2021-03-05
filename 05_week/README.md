@@ -11,6 +11,7 @@ Zadania:
  * Rozwa¿ ró¿ne aspekty i ró¿ne mo¿liwoœci us³ug i poka¿ jako algorytm liczenia przyj¹³eœ.
 
 #TYDZIEÑ5.1 - OdpowiedŸ do zadania : 
+__________________
 Reprezentacj¹ us³ugi sk³adowania danych w Azure (Azure Storage) jest Azure Storage Account. Zapewnia unikatow¹ przestrzeñ nazewnicz¹ dla danych sk³adowanych w jej obrêbie by mog³y byæ dostêpne za poœrednictwem protoko³u HTTP/S. 
 W Storage Account mog¹ byæ reprezentowane wszystkie obiekty sk³adowania danych w Azure tj. : 
                 Blobs, Files, Queues, Tables oraz Disks.
@@ -90,7 +91,7 @@ Przyk³ady dobrych i z³ych zastosowañ poszczególnych 4 z 6 us³ug dostêpnych w ram
 #TYDZIEÑ5.2 OdpowiedŸ do zadania
 „Wymieñ jeden dobry i jeden z³y przyk³ad wykorzystania StorSimple w swojej organizacji. Napisz, kiedy i w jakich scenariuszach siê sprawdzi, a kiedy nie.”
 
-
+__________________
 Azure StorSimple to dedykowane rozwi¹zanie, która ma za zadanie u³atwiæ zarz¹dzanie danymi. Ze wzglêdu na to jak zosta³a skonstruowane mo¿na od razu zauwa¿yæ, i¿ nada siê ws¿edzie tam gdzie:
     - jest potrzeba skonsolidowania du¿ych zasobów ró¿nych danych 
     - jest potrzeba funkcjonowania centralnych repozytoriów np. Backupów, nagrañ monitoringu, zapisu logów, wytworzonych buildów, aktualizowanej dokumentacji etc
@@ -107,7 +108,12 @@ W naszej organizacji Azure StorSimple napewno sprawdzi³ by siê jako repozytorium
 Na pewno bym go nie uzy³ jako macirzy do HyperV lub ESXi. Tam dyski VHD musz¹ byæ dostêpne ca³y czas i drobnymi rozmiarami raczej nie grzesz¹ :)
     
 #TYDZIEÑ5.3 OdpowiedŸ:
- 
+„Liczymy Koszty :). Umówmy siê. Twój system backupu (nie ma znaczenia jaki) sk³aduje 1TB nowych danych ka¿dego dnia. Wykorzystujesz oczywiœcie Azure do tej operacji i chcesz dane sk³adowaæ jak najtaniej. Przez dwa lata nie kasujesz zebranych danych. Po dwóch latach na próbê odtwarzasz dane z ostatniego dnia ka¿dego roku. Po 3 roku kasujesz dane, zebrane w roku pierwszym.
+
+ * Ile ³¹cznie wygenerujesz kosztów w ramach tej us³ugi, jeœli rozwa¿ymy pe³ny, 6 letni okres jej dzia³ania.
+ * Rozwa¿ ró¿ne aspekty i ró¿ne mo¿liwoœci us³ug i poka¿ jako algorytm liczenia przyj¹³eœ.
+
+__________________
 Polityka backupu:
 - backup ka¿dego dnia (+1TB)
 - odtwarzanie ka¿dego roku backupu rocznego, pierwszy raz po dwóch latach
