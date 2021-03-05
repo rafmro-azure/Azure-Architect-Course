@@ -163,17 +163,19 @@ obliczenia dla taryfikatora według płatności PAYG:
     WX - koszt całkowity gromadzenia i składowania 1095TB danych przez 6lat
         WX = HX3 + GX = 60792,48$
     
-Całkowity koszt składowania założonej ilości danych zamyka się w kwocie 60792,48$. 
+**Całkowity koszt składowania założonej ilości danych PAYG zamyka się w kwocie 60792,48$**
 
   Aby uzyskać oszczedności z tej kwoty należy przeprowadzić symulacje kosztów w przedzialach czasowych oraz estymowanych kosztach rezerwacji.
-    Dodatkowo aby miec porónanie do rezerwacji na 1PB należało oblyiczyć koszt gromadzenie 1PB danych.
-    GX1 - koszt gromadzenia i składowania 1PB danych w ciagu pierwszych trzech lat.  
+  Dodatkowo aby miec porónanie do rezerwacji na 1PB należało oblyiczyć koszt gromadzenie 1PB danych.
+  GX1 - koszt gromadzenia i składowania 1PB danych w ciagu pierwszych trzech lat.  
+  
         AX4 = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(71/365) = 2173,17$  (gdyż 1095-1024=71)
         GX1 = AXY + (AXY+RXY) + (AX4+2xRXY) = 2xAXY + 3xRXY + AX4
         GX1 = 4514,28$ + 13505,8395$ + 2173,17$
+        
         GX1 = 20193,29$
 
-  róznica miedzy zebraniem 1PB a 1095TB (GX-GX1) wynosi 81,67$
+  *róznica miedzy zebraniem 1PB a 1095TB (GX-GX1) wynosi 81,67$*
 
 Rodzaj wolumenu danych                  |PAYG 1-year    | 1-year FU reservation |ROŻNICA
 ----------------------------------------|---------------|-----------------------|----------
@@ -198,16 +200,17 @@ Koszt składowania 200TB                 | 7340,46$      | 5986,00$             
 Koszt składowania 300TB                 |11010,69$      | 8979,00$              | 2031,69$
 Koszt składowania 1PB                   |37890,65$      |29150,00$              | 8740,65$
 
-  koszt skladowania 1095TB w PAYG przez 71 dni                    : 2627,16$
-  koszt składowania 71TB w PAYG przez 3 lata                      : 2605,69$
-  granica oplacalnosci zakladania rezerwacji FU na 100TB na 1 rok :     88TB
-  granica oplacalnosci zakladania rezerwacji FU na 100TB na 3lata :     81TB
+Uwagi:
+  1. koszt skladowania 1095TB w PAYG przez 71 dni                    : 2627,16$
+  2. koszt składowania 71TB w PAYG przez 3 lata                      : 2605,69$
+  3. granica oplacalnosci zakladania rezerwacji FU na 100TB na 1 rok :     88TB
+  4. granica oplacalnosci zakladania rezerwacji FU na 100TB na 3lata :     81TB
 
   Jak widać najwieksze róznice uzyskujemy przy rezerwacjach trzyletnich. Natomiast, w przypadku pierwszych trzech lat sensowne wydaje sie być 
   zalożenie rezerwacji trzyletnich na pierwsze 200TB danych i nastepnie na pojawiające się pełne 100TB (pełne w sensie roku kalendarzowego) zakładanie 
   rezerwacji 1-dno rocznych. 
   
-Moja propozycja planu wykupu rezerwacji:
+**Moja propozycja planu wykupu rezerwacji:**
  1. przed rozpoczęciem, wykupienie rezerwacji FU 3 letnich na 2x100TB w ten sposób odzyskamy z ogólnego rachunku     :  701,86$
  2. po 1-szym roku wykupienie 1 rezerwacji FU 1 rocznych na 100TB w ten sposób odzyskamy z ogólnego rachunku         :  140,00$
  3. po 2-óch latach wykupienie 5 rezerewacji FU 1 rocznych na 100TB w ten sposób odzyskamy z ogólnego rachunku       :  700,00$
@@ -215,11 +218,11 @@ Moja propozycja planu wykupu rezerwacji:
  5. różnica wynikająca 1PB i 1095TB (71TB) musi byc opłacona w trybie PAYG, 
     gdyż jest pod progiem opłacalności wykupu rezerwacji (81TB)
  
-Sumarycznie z rachunku PAYG odzyskujemy 10282,51$
+**Sumarycznie z rachunku PAYG odzyskujemy 10282,51$
 
-  koszt składowania naszych danych zamyka się w tym przypadku w kwocie 50 509,97$.
+**Koszt składowania naszych danych z wykorzystaniem rezerwacji zamyka się w tym przypadku w kwocie _50 509,97$._
 
 Ponadto zadanie wspomina o cyklicznym testowaniu backupów rocznych, które rozpoczyna się po pierwszych dwóch latach.
   Wynika z tego, ze w okresie 6 lat odbeda się co najmniej 4 takie akcje.
   Koszt jednej bedzie głównie kosztem sciągniecia 1TB z chmury Azure czyli 22,53$. 
-  Sumarycznie za wszystkie akcje testowania backupu wyjdzie 90,12$
+  Sumarycznie za wszystkie akcje testowania backupu wyjdzie **90,12$**
