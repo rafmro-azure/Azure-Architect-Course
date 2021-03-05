@@ -218,9 +218,9 @@ Uwagi:
  5. różnica wynikająca 1PB i 1095TB (71TB) musi byc opłacona w trybie PAYG, 
     gdyż jest pod progiem opłacalności wykupu rezerwacji (81TB)
  
-**Sumarycznie z rachunku PAYG odzyskujemy 10282,51$
+**Sumarycznie z rachunku PAYG odzyskujemy 10282,51$**
 
-**Koszt składowania naszych danych z wykorzystaniem rezerwacji zamyka się w tym przypadku w kwocie _50 509,97$._
+**Koszt składowania naszych danych z wykorzystaniem rezerwacji zamyka się w tym przypadku w kwocie _50 509,97$._**
 
 Ponadto zadanie wspomina o cyklicznym testowaniu backupów rocznych, które rozpoczyna się po pierwszych dwóch latach.
   Wynika z tego, ze w okresie 6 lat odbeda się co najmniej 4 takie akcje.
