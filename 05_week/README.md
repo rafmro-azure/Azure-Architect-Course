@@ -87,7 +87,7 @@ Przykłady dobrych i złych zastosowań poszczególnych 4 z 6 usług dostępnych
             Azure Table jest to nic innego jak bardzo prosta baza danych NoSQL. Z wszystkimi jej wadami i zaletami :)
 
 
-
+__________________
 #TYDZIEŃ5.2 Odpowiedź do zadania
 „Wymień jeden dobry i jeden zły przykład wykorzystania StorSimple w swojej organizacji. Napisz, kiedy i w jakich scenariuszach się sprawdzi, a kiedy nie.”
 
@@ -106,7 +106,8 @@ Trzeba jednak pamietać, iż mimo StorSimple jest również macierzą dyskową (
 
 W naszej organizacji Azure StorSimple napewno sprawdził by się jako repozytorium kodu oraz buildów. Miejsca pod to zawsze brakuje do tego stopnia że trzeba ogranczać ilość buildów :)
 Na pewno bym go nie uzył jako macirzy do HyperV lub ESXi. Tam dyski VHD muszą być dostępne cały czas i drobnymi rozmiarami raczej nie grzeszą :)
-    
+
+__________________
 #TYDZIEŃ5.3 Odpowiedź:
 „Liczymy Koszty :). Umówmy się. Twój system backupu (nie ma znaczenia jaki) składuje 1TB nowych danych każdego dnia. Wykorzystujesz oczywiście Azure do tej operacji i chcesz dane składować jak najtaniej. Przez dwa lata nie kasujesz zebranych danych. Po dwóch latach na próbę odtwarzasz dane z ostatniego dnia każdego roku. Po 3 roku kasujesz dane, zebrane w roku pierwszym.
 
@@ -114,6 +115,7 @@ Na pewno bym go nie uzył jako macirzy do HyperV lub ESXi. Tam dyski VHD muszą 
  * Rozważ różne aspekty i różne możliwości usług i pokaż jako algorytm liczenia przyjąłeś.
 
 __________________
+
 Polityka backupu:
 - backup każdego dnia (+1TB)
 - odtwarzanie każdego roku backupu rocznego, pierwszy raz po dwóch latach
@@ -121,57 +123,59 @@ Polityka backupu:
 
 Wyliczenia w scenariuszu PAYG (Pay-As-You-Go):
   Przyjeto :
+  
             rejon               : North Europe (obecnie najtańszy w Europie)
             usługa              : Blob Stroage
             poziom dostępności  : Archive
             1TB                 : 1024GB
 
 obliczenia dla taryfikatora według płatności PAYG:
-CX - "srednia" cena z cennika za 1GB w wybranej usłudze składowania przez jeden miesiac dla wybranego regionu oraz typu usługi. 
-    Uwaga: Za "sredni" kalkulator kosztów przyjmuje okres 30 dni.
-    CX = 0,00099$
-DXG - koszt przechowywania 1GB przez 1 dzień (CX/30)
-    DXG = 0,000033$
-DXT - koszt przechowywania 1TB przez 1 dzień (1024xDXG)
-    DXT = 0,033792$
-TXY - koszt przechowywania 1TB danych przez rok (365xDXT). 
-    TXY = 12,3341$
-RX1 - koszt przechowywania 100TB danych przez 1 rok (100xTXY)
-    RX1 = 1233,408$
-RXY - koszt przechowywania 365TB danych przez 1 rok (365xTXY)
-    RXY = 4501,9465$
-AX1 - koszt gromadzenia 100TB danych (po 1TB przez 100 dni) + koszt ich przechowywania w danym roku. 
-        Koszt został policzony wg wzoru na sumę ciągu (kazdy dodany 1TB jest skladowany o dzien krocej od poprzednika):
-    AX1 = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(265/365)
-    AX1 = 1066,14$
-AXY - koszt gromadzenia 365TB danych (po 1TB przez 365 dni) + koszt ich przechowywania w danym roku. 
-        Koszt został policzony wg wzoru na sumę ciągu (kazdy nastepny 1TB jest skladowany o dzien krocej w roku):
-    AXY = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(1/365)
-    AXY = 2257,14$
-GX - koszt gromadzenia i składowania 1095TB danych przez trzy pierwsze lata. 
-    GX = AXY + (AXY+RXY) + (AXY+2xRXY) = 3xAXY + 3xRXY = 6769,17$ + 13505,79$
-    GX = 20274,96$
 
-HXY - koszt składowania 1095TB danych przez rok (1095xTXY)
-    HXY = 13505,84$
-HX3 - koszt składowania 1095TB (3x365) danych przez 3 lata (3xHXY)
-    HX3 = 40517,52$
-WX - koszt całkowity gromadzenia i składowania 1095TB danych przez 6lat
-    WX = HX3 + GX = 60792,48$
+    CX - "srednia" cena z cennika za 1GB w wybranej usłudze składowania przez jeden miesiac dla wybranego regionu oraz typu usługi. 
+        Uwaga: Za "sredni" kalkulator kosztów przyjmuje okres 30 dni.
+        CX = 0,00099$
+    DXG - koszt przechowywania 1GB przez 1 dzień (CX/30)
+        DXG = 0,000033$
+    DXT - koszt przechowywania 1TB przez 1 dzień (1024xDXG)
+        DXT = 0,033792$
+    TXY - koszt przechowywania 1TB danych przez rok (365xDXT). 
+        TXY = 12,3341$
+    RX1 - koszt przechowywania 100TB danych przez 1 rok (100xTXY)
+        RX1 = 1233,408$
+    RXY - koszt przechowywania 365TB danych przez 1 rok (365xTXY)
+        RXY = 4501,9465$
+    AX1 - koszt gromadzenia 100TB danych (po 1TB przez 100 dni) + koszt ich przechowywania w danym roku. 
+            Koszt został policzony wg wzoru na sumę ciągu (kazdy dodany 1TB jest skladowany o dzien krocej od poprzednika):
+        AX1 = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(265/365)
+        AX1 = 1066,14$
+    AXY - koszt gromadzenia 365TB danych (po 1TB przez 365 dni) + koszt ich przechowywania w danym roku. 
+            Koszt został policzony wg wzoru na sumę ciągu (kazdy nastepny 1TB jest skladowany o dzien krocej w roku):
+        AXY = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(1/365)
+        AXY = 2257,14$
+    GX - koszt gromadzenia i składowania 1095TB danych przez trzy pierwsze lata. 
+        GX = AXY + (AXY+RXY) + (AXY+2xRXY) = 3xAXY + 3xRXY = 6769,17$ + 13505,79$
+        GX = 20274,96$
+
+    HXY - koszt składowania 1095TB danych przez rok (1095xTXY)
+        HXY = 13505,84$
+    HX3 - koszt składowania 1095TB (3x365) danych przez 3 lata (3xHXY)
+        HX3 = 40517,52$
+    WX - koszt całkowity gromadzenia i składowania 1095TB danych przez 6lat
+        WX = HX3 + GX = 60792,48$
     
 Całkowity koszt składowania założonej ilości danych zamyka się w kwocie 60792,48$. 
 
-Aby uzyskać oszczedności z tej kwoty należy przeprowadzić symulacje kosztów w przedzialach czasowych oraz estymowanych kosztach rezerwacji.
-Dodatkowo aby miec porónanie do rezerwacji na 1PB należało oblyiczyć koszt gromadzenie 1PB danych.
-GX1 - koszt gromadzenia i składowania 1PB danych w ciagu pierwszych trzech lat.  
-    AX4 = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(71/365) = 2173,17$  (gdyż 1095-1024=71)
-    GX1 = AXY + (AXY+RXY) + (AX4+2xRXY) = 2xAXY + 3xRXY + AX4
-    GX1 = 4514,28$ + 13505,8395$ + 2173,17$
-    GX1 = 20193,29$
+  Aby uzyskać oszczedności z tej kwoty należy przeprowadzić symulacje kosztów w przedzialach czasowych oraz estymowanych kosztach rezerwacji.
+    Dodatkowo aby miec porónanie do rezerwacji na 1PB należało oblyiczyć koszt gromadzenie 1PB danych.
+    GX1 - koszt gromadzenia i składowania 1PB danych w ciagu pierwszych trzech lat.  
+        AX4 = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(71/365) = 2173,17$  (gdyż 1095-1024=71)
+        GX1 = AXY + (AXY+RXY) + (AX4+2xRXY) = 2xAXY + 3xRXY + AX4
+        GX1 = 4514,28$ + 13505,8395$ + 2173,17$
+        GX1 = 20193,29$
 
-róznica miedzy zebraniem 1PB a 1095TB (GX-GX1) wynosi 81,67$
+  róznica miedzy zebraniem 1PB a 1095TB (GX-GX1) wynosi 81,67$
 
-                                        |PAYG 1-year    | 1-year FU reservation |ROŻNICA
+Rodzaj wolumenu danych                  |PAYG 1-year    | 1-year FU reservation |ROŻNICA
 ----------------------------------------|---------------|-----------------------|----------
 koszt gromadzenia 100TB                 | 1066,14$      | 1083,00$              |  -16,86$
 Koszt składowania 100TB                 | 1223,33$      | 1083,00$              |  140,00$
@@ -182,7 +186,7 @@ koszt gromadzenia 1PB                   |N/A            |10589,00$              
 Koszt składowania 1PB                   |12630,09$      |10589,00$              | 2041,09$
 
 
-                                        |PAYG 3-year    | 3-year FU reservation |ROŻNICA
+Rodzaj wolumenu danych                  |PAYG 3-year    | 3-year FU reservation |ROŻNICA
 ----------------------------------------|---------------|-----------------------|---------
 koszt gromadzenia (pierwszych) 100TB    | 3512,80$      | 2993,00$              |  519,80$
 koszt gromadzenia (pierwszych) 200TB    | 6687,68$      | 5986,00$              |  701,86$
@@ -194,18 +198,15 @@ Koszt składowania 200TB                 | 7340,46$      | 5986,00$             
 Koszt składowania 300TB                 |11010,69$      | 8979,00$              | 2031,69$
 Koszt składowania 1PB                   |37890,65$      |29150,00$              | 8740,65$
 
-koszt skladowania 1095TB w PAYG przez 71 dni
-2627,16$
-koszt składowania 71TB w PAYG przez 3 lata
-2605,69$
-granica oplacalnosci zakladania rezerwacji FU na 100TB na 1 rok
-88TB
-granica oplacalnosci zakladania rezerwacji FU na 100TB na 3lata
-81TB
+  koszt skladowania 1095TB w PAYG przez 71 dni                    : 2627,16$
+  koszt składowania 71TB w PAYG przez 3 lata                      : 2605,69$
+  granica oplacalnosci zakladania rezerwacji FU na 100TB na 1 rok :     88TB
+  granica oplacalnosci zakladania rezerwacji FU na 100TB na 3lata :     81TB
 
-Jak widać najwieksze róznice uzyskujemy przy rezerwacjach trzyletnich. Natomiast, w przypadku pierwszych trzech lat sensowne wydaje sie być zalożenie 
-rezerwacji trzyletnich na pierwsze 200TB danych i nastepnie na pojawiające się pełne 100TB (pełne w sensie roku kalendarzowego) zakładanie 
-rezerwacji 1-dno rocznych. 
+  Jak widać najwieksze róznice uzyskujemy przy rezerwacjach trzyletnich. Natomiast, w przypadku pierwszych trzech lat sensowne wydaje sie być 
+  zalożenie rezerwacji trzyletnich na pierwsze 200TB danych i nastepnie na pojawiające się pełne 100TB (pełne w sensie roku kalendarzowego) zakładanie 
+  rezerwacji 1-dno rocznych. 
+  
 Moja propozycja planu wykupu rezerwacji:
  1. przed rozpoczęciem, wykupienie rezerwacji FU 3 letnich na 2x100TB w ten sposób odzyskamy z ogólnego rachunku     :  701,86$
  2. po 1-szym roku wykupienie 1 rezerwacji FU 1 rocznych na 100TB w ten sposób odzyskamy z ogólnego rachunku         :  140,00$
@@ -215,9 +216,10 @@ Moja propozycja planu wykupu rezerwacji:
     gdyż jest pod progiem opłacalności wykupu rezerwacji (81TB)
  
 Sumarycznie z rachunku PAYG odzyskujemy 10282,51$
-koszt składowania naszych danych zamyka się w tym przypadku w kwocie 50 509,97$.
+
+  koszt składowania naszych danych zamyka się w tym przypadku w kwocie 50 509,97$.
 
 Ponadto zadanie wspomina o cyklicznym testowaniu backupów rocznych, które rozpoczyna się po pierwszych dwóch latach.
-Wynika z tego, ze w okresie 6 lat odbeda się co najmniej 4 takie akcje.
-Koszt jednej bedzie głównie kosztem sciągniecia 1TB z chmury Azure czyli 22,53$. 
-Sumarycznie za wszystkie akcje testowania backupu wyjdzie 90,12$
+  Wynika z tego, ze w okresie 6 lat odbeda się co najmniej 4 takie akcje.
+  Koszt jednej bedzie głównie kosztem sciągniecia 1TB z chmury Azure czyli 22,53$. 
+  Sumarycznie za wszystkie akcje testowania backupu wyjdzie 90,12$
