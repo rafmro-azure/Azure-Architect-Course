@@ -1,28 +1,28 @@
-Zadanie domowe z Tygodnia 4 kursu AZ-303: Microsoft Azure Architect TechnologiesõTYDZIE— 4: Implement storage accounts
+Zadanie domowe z Tygodnia 4 kursu AZ-303: Microsoft Azure Architect Technologies‚Ä∫TYDZIE≈É 4: Implement storage accounts
 
 Zadania:
-#TYDZIE—5.1 ÑDla kaødego typu Storage, ktÛrego siÍ nauczy≥eú w czasie kursu (min. 4 typy) dobierz dwa dobre i jedno z≥e zastosowanie. Chcia≥bym byú zweryfikowa≥ rÛøne moøliwoúci sk≥adowania danych w Azure i opowiedzia≥, kiedy i do czego te moøliwoúci moøesz wykorzystaÊ.î
-#TYDZIE—5.2
-ÑWymieÒ jeden dobry i jeden z≥y przyk≥ad wykorzystania StorSimple w swojej organizacji. Napisz, kiedy i w jakich scenariuszach siÍ sprawdzi, a kiedy nie.î
-#TYDZIE—5.3
-ÑLiczymy Koszty :). UmÛwmy siÍ. TwÛj system backupu (nie ma znaczenia jaki) sk≥aduje 1TB nowych danych kaødego dnia. Wykorzystujesz oczywiúcie Azure do tej operacji i chcesz dane sk≥adowaÊ jak najtaniej. Przez dwa lata nie kasujesz zebranych danych. Po dwÛch latach na prÛbÍ odtwarzasz dane z ostatniego dnia kaødego roku. Po 3 roku kasujesz dane, zebrane w roku pierwszym.
+#TYDZIE≈É5.1 ‚ÄûDla ka≈ºdego typu Storage, kt√≥rego siƒô nauczy≈Çe≈õ w czasie kursu (min. 4 typy) dobierz dwa dobre i jedno z≈Çe zastosowanie. Chcia≈Çbym by≈õ zweryfikowa≈Ç r√≥≈ºne mo≈ºliwo≈õci sk≈Çadowania danych w Azure i opowiedzia≈Ç, kiedy i do czego te mo≈ºliwo≈õci mo≈ºesz wykorzystaƒá.‚Äù
+#TYDZIE≈É5.2
+‚ÄûWymie≈Ñ jeden dobry i jeden z≈Çy przyk≈Çad wykorzystania StorSimple w swojej organizacji. Napisz, kiedy i w jakich scenariuszach siƒô sprawdzi, a kiedy nie.‚Äù
+#TYDZIE≈É5.3
+‚ÄûLiczymy Koszty :). Um√≥wmy siƒô. Tw√≥j system backupu (nie ma znaczenia jaki) sk≈Çaduje 1TB nowych danych ka≈ºdego dnia. Wykorzystujesz oczywi≈õcie Azure do tej operacji i chcesz dane sk≈Çadowaƒá jak najtaniej. Przez dwa lata nie kasujesz zebranych danych. Po dw√≥ch latach na pr√≥bƒô odtwarzasz dane z ostatniego dnia ka≈ºdego roku. Po 3 roku kasujesz dane, zebrane w roku pierwszym.
 
- * Ile ≥πcznie wygenerujesz kosztÛw w ramach tej us≥ugi, jeúli rozwaøymy pe≥ny, 6 letni okres jej dzia≥ania.
- * Rozwaø rÛøne aspekty i rÛøne moøliwoúci us≥ug i pokaø jako algorytm liczenia przyjπ≥eú.
+ * Ile ≈ÇƒÖcznie wygenerujesz koszt√≥w w ramach tej us≈Çugi, je≈õli rozwa≈ºymy pe≈Çny, 6 letni okres jej dzia≈Çania.
+ * Rozwa≈º r√≥≈ºne aspekty i r√≥≈ºne mo≈ºliwo≈õci us≈Çug i poka≈º jako algorytm liczenia przyjƒÖ≈Çe≈õ.
 
-#TYDZIE—5.1 - Odpowiedü do zadania : 
+#TYDZIE≈É5.1 - Odpowied≈∫ do zadania : 
 __________________
-Reprezentacjπ us≥ugi sk≥adowania danych w Azure (Azure Storage) jest Azure Storage Account. Zapewnia unikatowπ przestrzeÒ nazewniczπ dla danych sk≥adowanych w jej obrÍbie by mog≥y byÊ dostÍpne za poúrednictwem protoko≥u HTTP/S. 
-W Storage Account mogπ byÊ reprezentowane wszystkie obiekty sk≥adowania danych w Azure tj. : 
+ReprezentacjƒÖ us≈Çugi sk≈Çadowania danych w Azure (Azure Storage) jest Azure Storage Account. Zapewnia unikatowƒÖ przestrze≈Ñ nazewniczƒÖ dla danych sk≈Çadowanych w jej obrƒôbie by mog≈Çy byƒá dostƒôpne za po≈õrednictwem protoko≈Çu HTTP/S. 
+W Storage Account mogƒÖ byƒá reprezentowane wszystkie obiekty sk≈Çadowania danych w Azure tj. : 
                 Blobs, Files, Queues, Tables oraz Disks.
-Obecnie w Azure funkcjonujπ nastÍpujπce typy Storage Accounts : 
+Obecnie w Azure funkcjonujƒÖ nastƒôpujƒÖce typy Storage Accounts : 
                 GPv2, GPv1, BlockBlobStorage, FileStorage oraz BlobStorage
-Opcje niezawodnoúciowe dla Storage Accounts to obecnie:
+Opcje niezawodno≈õciowe dla Storage Accounts to obecnie:
                 Locally redundant storage (LRS), Zone-redundant storage (ZRS), Geo-redundant storage (GRS) z Read-Access GRS (RA-GRS) 
                 oraz Geo-zone-redundant storage (GZRS) z Read-Access GZRS (RA-GZRS).
 
                 
-Typy Storage Account        |Wspierane us≥ugi                                        |DostÍpne opcje niezawodnoúciowe       |DostÍpne Opcje Wydajnoúciowe   | Poziomy dostÍpnoúci
+Typy Storage Account        |Wspierane us≈Çugi                                        |Dostƒôpne opcje niezawodno≈õciowe       |Dostƒôpne Opcje Wydajno≈õciowe   | Poziomy dostƒôpno≈õci
 ----------------------------|--------------------------------------------------------|--------------------------------------|-------------------------------|---------------------------
 General-purpose V2          |Blob, File, Queue, Table, Disk i Data Lake Gen2         |LRS, GRS, RA-GRS, ZRS, GZRS, RA-GZRS3 |Premium, Standard              |Hot, Cool, Archive
 General-purpose V1          |Blob, File, Queue, Table i Disk                         |LRS, GRS, RA-GRS                      |Premium, Standard              |brak
@@ -30,9 +30,9 @@ BlockBlobStorage            |Blob (tylko block blobs i append blobs)            
 FileStorage	                |File                                                    |LRS, ZRS3                             |Premium                        |brak
 BlobStorage	                |Blob (tylko block blobs i append blobs)                 |LRS, GRS, RA-GRS                      |Standard                       |Hot, Cool, Archive
                 
-Jak ≥atwo siÍ domyúlic w zadaniu nie chodzi o podanie typÛw Storage Accounts a raczej chodzi podzia≥ Azure Storage na jego us≥ugi tak jak to zosta≥o
+Jak ≈Çatwo siƒô domy≈õlic w zadaniu nie chodzi o podanie typ√≥w Storage Accounts a raczej chodzi podzia≈Ç Azure Storage na jego us≈Çugi tak jak to zosta≈Ço
 zrobione na stronie : https://azure.microsoft.com/en-us/services/storage/
-Strona ta wymienia nastÍpujπce produkty (us≥ugi) Storage :
+Strona ta wymienia nastƒôpujƒÖce produkty (us≈Çugi) Storage :
     - Blob storage
     - Azure Disk Storage
     - Azure Files
@@ -40,99 +40,99 @@ Strona ta wymienia nastÍpujπce produkty (us≥ugi) Storage :
     - Azure Archive Storage
     - Azure HPC Cache
 
-Przyk≥ady dobrych i z≥ych zastosowaÒ poszczegÛlnych 4 z 6 us≥ug dostÍpnych w ramach Storage Account General Purpose w wersji 2giej (tu. Blob, File, Queue oraz Table) :
+Przyk≈Çady dobrych i z≈Çych zastosowa≈Ñ poszczeg√≥lnych 4 z 6 us≈Çug dostƒôpnych w ramach Storage Account General Purpose w wersji 2giej (tu. Blob, File, Queue oraz Table) :
    1. Kontenery/Blobs:
-        - G≥Ûwne zastosowanie to : 
-                a. przechowywanie plikÛw multimedialnych (i udostÍpnianie przez CDN), 
+        - G≈Ç√≥wne zastosowanie to : 
+                a. przechowywanie plik√≥w multimedialnych (i udostƒôpnianie przez CDN), 
                 b. hosting statycznych stron www, 
                 c. dyski VHD, 
-                d. pliki backupÛw 
-        - Niew≥aúciwe zastosowanie to : 
-                a. hierarchiczne systemy plikowe z zagnieødzonymi uprawnieniami jak ma to miejsce np. w korporacyjnych dyskach wspÛ≥dzielonych
-                b. dynamiczne nadpisywane pliki logÛw (zw≥aszcza przy w≥πczonym wersjonowaniu)
-                c. analityka duøych zbiorÛw dancyh (-> big data analitycs)
-        Naleøy zwrÛciÊ uwagÍ iø, powyøsze przyk≥ady nie sπ jednak przyk≥adami z≥ego zastosowania Blobs Storage. Sπ tylko nieptymalnymi :) 
-        Blobs jako us≥uga fundamentalna moøe zostac uøyta praktycznie do kaødego celu ;) 
+                d. pliki backup√≥w 
+        - Niew≈Ça≈õciwe zastosowanie to : 
+                a. hierarchiczne systemy plikowe z zagnie≈ºdzonymi uprawnieniami jak ma to miejsce np. w korporacyjnych dyskach wsp√≥≈Çdzielonych
+                b. dynamiczne nadpisywane pliki log√≥w (zw≈Çaszcza przy w≈ÇƒÖczonym wersjonowaniu)
+                c. analityka du≈ºych zbior√≥w dancyh (-> big data analitycs)
+        Nale≈ºy zwr√≥ciƒá uwagƒô i≈º, powy≈ºsze przyk≈Çady nie sƒÖ jednak przyk≈Çadami z≈Çego zastosowania Blobs Storage. SƒÖ tylko nieptymalnymi :) 
+        Blobs jako us≈Çuga fundamentalna mo≈ºe zostac u≈ºyta praktycznie do ka≈ºdego celu ;) 
         to tylko kwestia odpowiedniego wykorzystania SDK i metadanych ;)
                 
     2. Azure Files
-        - G≥Ûwne zastosowanie to : 
-                a. udostÍpnianie dyskÛw wspÛ≥dzielonych dla systemÛw obs≥ugujπcych SMB i NFS np. dyski sieciowe w Windows Serwer)
-                b. wszÍdzie tam gdzie dostep realizowany przez API musi byÊ obs≥ugiwany szybko, ≥atwo i powtarzalnie np. poprzez skrypty Powershell, Az Cli, Perl, Go
-        - Nie nadaje siÍ do : 
-                a. przetwarzania duøych wolumenÛw danych (ograniczenia do 5TB per udzia≥) np. sk≥adowanie plikÛw backupÛw 
+        - G≈Ç√≥wne zastosowanie to : 
+                a. udostƒôpnianie dysk√≥w wsp√≥≈Çdzielonych dla system√≥w obs≈ÇugujƒÖcych SMB i NFS np. dyski sieciowe w Windows Serwer)
+                b. wszƒôdzie tam gdzie dostep realizowany przez API musi byƒá obs≈Çugiwany szybko, ≈Çatwo i powtarzalnie np. poprzez skrypty Powershell, Az Cli, Perl, Go
+        - Nie nadaje siƒô do : 
+                a. przetwarzania du≈ºych wolumen√≥w danych (ograniczenia do 5TB per udzia≈Ç) np. sk≈Çadowanie plik√≥w backup√≥w 
                 b. wysoko wydajne przetwarzanie danych (ogranczenie na IOPS 10k i transfery do 60MB/s) np. BigData
-                c. trzymania danych, gdzie potrzeba jest hierarchicznego systemu uprawnien np. udzia≥y NTFS 
-                d. gdzie dane muszπ byÊ backupowane a wersje plikÛw sledzone np. obiekty dokumentujπce Compliance (nagrania, tracking, logi)
+                c. trzymania danych, gdzie potrzeba jest hierarchicznego systemu uprawnien np. udzia≈Çy NTFS 
+                d. gdzie dane muszƒÖ byƒá backupowane a wersje plik√≥w sledzone np. obiekty dokumentujƒÖce Compliance (nagrania, tracking, logi)
 
     3. Azure (Storage) Queue         
-            W tym przypadku, naleøy raczej odpowiedzieÊ w jakich przypadkach stosowaÊ Azure Storage Queue a w jakich Azure Service Bus.
-            I tak (z grubsza) Azure Storage Queue stosuje siÍ do kolejek, ktÛre:
-                a. majπ zak≥adana pojemnoúÊ wiekszπ niø 80GB
-                b. muszπ úledziÊ przetwarzanie wiadomoúci 
-                c. wymagane jest niezaleøne (od logowania workerÛw/konsumentÛw) logowanie transakcji przy przetwarzaniu wiadomoúci
-            Jest to temat na tyle skomplikowany, øe nawet nie pokuszÍ siÍ o przyk≥ady, gdzie mog≥o by mieÊ zastosowanie wy≥πcznie Azure Storage Queue
+            W tym przypadku, nale≈ºy raczej odpowiedzieƒá w jakich przypadkach stosowaƒá Azure Storage Queue a w jakich Azure Service Bus.
+            I tak (z grubsza) Azure Storage Queue stosuje siƒô do kolejek, kt√≥re:
+                a. majƒÖ zak≈Çadana pojemno≈õƒá wiekszƒÖ ni≈º 80GB
+                b. muszƒÖ ≈õledziƒá przetwarzanie wiadomo≈õci 
+                c. wymagane jest niezale≈ºne (od logowania worker√≥w/konsument√≥w) logowanie transakcji przy przetwarzaniu wiadomo≈õci
+            Jest to temat na tyle skomplikowany, ≈ºe nawet nie pokuszƒô siƒô o przyk≈Çady, gdzie mog≈Ço by mieƒá zastosowanie wy≈ÇƒÖcznie Azure Storage Queue
             (za https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted)
             
     4. Azure Table
-            Podobnie jak z Azure Storage Queue, o tym czy do konkretnego zastosowania moøna uøyÊ Azure Storage Table czy teø CosmosDB czy Azure SQL musi sobie odpowiedzieÊ
-            sam architekt. Musi on jednak miec na wzglÍdzie nastepujπce ograniczenia:
-                a. nie ma gÛrnego ogranicznia na czas odpowiedü (CosmosDB ma do kilku ms)
-                b. limit na d≥ugoúÊ wiersza (1MB)
+            Podobnie jak z Azure Storage Queue, o tym czy do konkretnego zastosowania mo≈ºna u≈ºyƒá Azure Storage Table czy te≈º CosmosDB czy Azure SQL musi sobie odpowiedzieƒá
+            sam architekt. Musi on jednak miec na wzglƒôdzie nastepujƒÖce ograniczenia:
+                a. nie ma g√≥rnego ogranicznia na czas odpowied≈∫ (CosmosDB ma do kilku ms)
+                b. limit na d≈Çugo≈õƒá wiersza (1MB)
                 c. nie wspiera popularnych API NoSQL
-                d. nie ma mozliwoúci nadawania uprawnien granularnych
-                e. nie wspiera budowy aplikacji o zasiegu úwiatowym 
+                d. nie ma mozliwo≈õci nadawania uprawnien granularnych
+                e. nie wspiera budowy aplikacji o zasiegu ≈õwiatowym 
                 f. baza danych typu NoSQL
             i wiele innych. ..
             Azure Table jest to nic innego jak bardzo prosta baza danych NoSQL. Z wszystkimi jej wadami i zaletami :)
 
 
 
-#TYDZIE—5.2 Odpowiedü do zadania
-ÑWymieÒ jeden dobry i jeden z≥y przyk≥ad wykorzystania StorSimple w swojej organizacji. Napisz, kiedy i w jakich scenariuszach siÍ sprawdzi, a kiedy nie.î
+#TYDZIE≈É5.2 Odpowied≈∫ do zadania
+‚ÄûWymie≈Ñ jeden dobry i jeden z≈Çy przyk≈Çad wykorzystania StorSimple w swojej organizacji. Napisz, kiedy i w jakich scenariuszach siƒô sprawdzi, a kiedy nie.‚Äù
 
 __________________
-Azure StorSimple to dedykowane rozwiπzanie, ktÛra ma za zadanie u≥atwiÊ zarzπdzanie danymi. Ze wzglÍdu na to jak zosta≥a skonstruowane moøna od razu zauwaøyÊ, iø nada siÍ wsøedzie tam gdzie:
-    - jest potrzeba skonsolidowania duøych zasobÛw rÛønych danych 
-    - jest potrzeba funkcjonowania centralnych repozytoriÛw np. BackupÛw, nagraÒ monitoringu, zapisu logÛw, wytworzonych buildÛw, aktualizowanej dokumentacji etc
-    - polityka bezpieczeÒstwa wskazuje øe backupy powinny byÊ off-sitowane poza siedzibe firmy (chmura)
-    - gdzie plany DR przewidujπ prawie natychmiastowe odzyskiwanie danych w zapasowym centrum firmy
-    - tranzycja do zasobÛw chmurowych musi obywaÊ siÍ etapowo i w d≥ugim okresie czasu
-    - potrzebna jest niedroga macierz o ponadprzeciÍtnej pojemnoúci :)
-Trzeba jednak pamietaÊ, iø mimo StorSimple jest rÛwnieø macierzπ dyskowπ (lub moøe byc tak traktowana) to nie zaleca siÍ jej korzystaÊ w przypadku:
-    - s≥abego lub przeciπøonego ≥acza internetowego do chmury Azure
-    - sk≥adowania plikÛw o duøej rotacji zawartoúci jak np. dyski wirtualne, pliki DB etc.
-    - szybkiej migracji do chmury Azure duøych wolumenÛw danych 
+Azure StorSimple to dedykowane rozwiƒÖzanie, kt√≥ra ma za zadanie u≈Çatwiƒá zarzƒÖdzanie danymi. Ze wzglƒôdu na to jak zosta≈Ça skonstruowane mo≈ºna od razu zauwa≈ºyƒá, i≈º nada siƒô ws≈ºedzie tam gdzie:
+    - jest potrzeba skonsolidowania du≈ºych zasob√≥w r√≥≈ºnych danych 
+    - jest potrzeba funkcjonowania centralnych repozytori√≥w np. Backup√≥w, nagra≈Ñ monitoringu, zapisu log√≥w, wytworzonych build√≥w, aktualizowanej dokumentacji etc
+    - polityka bezpiecze≈Ñstwa wskazuje ≈ºe backupy powinny byƒá off-sitowane poza siedzibe firmy (chmura)
+    - gdzie plany DR przewidujƒÖ prawie natychmiastowe odzyskiwanie danych w zapasowym centrum firmy
+    - tranzycja do zasob√≥w chmurowych musi obywaƒá siƒô etapowo i w d≈Çugim okresie czasu
+    - potrzebna jest niedroga macierz o ponadprzeciƒôtnej pojemno≈õci :)
+Trzeba jednak pamietaƒá, i≈º mimo StorSimple jest r√≥wnie≈º macierzƒÖ dyskowƒÖ (lub mo≈ºe byc tak traktowana) to nie zaleca siƒô jej korzystaƒá w przypadku:
+    - s≈Çabego lub przeciƒÖ≈ºonego ≈Çacza internetowego do chmury Azure
+    - sk≈Çadowania plik√≥w o du≈ºej rotacji zawarto≈õci jak np. dyski wirtualne, pliki DB etc.
+    - szybkiej migracji do chmury Azure du≈ºych wolumen√≥w danych 
 
-W naszej organizacji Azure StorSimple napewno sprawdzi≥ by siÍ jako repozytorium kodu oraz buildÛw. Miejsca pod to zawsze brakuje do tego stopnia øe trzeba ogranczaÊ iloúÊ buildÛw :)
-Na pewno bym go nie uzy≥ jako macirzy do HyperV lub ESXi. Tam dyski VHD muszπ byÊ dostÍpne ca≥y czas i drobnymi rozmiarami raczej nie grzeszπ :)
+W naszej organizacji Azure StorSimple napewno sprawdzi≈Ç by siƒô jako repozytorium kodu oraz build√≥w. Miejsca pod to zawsze brakuje do tego stopnia ≈ºe trzeba ogranczaƒá ilo≈õƒá build√≥w :)
+Na pewno bym go nie uzy≈Ç jako macirzy do HyperV lub ESXi. Tam dyski VHD muszƒÖ byƒá dostƒôpne ca≈Çy czas i drobnymi rozmiarami raczej nie grzeszƒÖ :)
     
-#TYDZIE—5.3 Odpowiedü:
-ÑLiczymy Koszty :). UmÛwmy siÍ. TwÛj system backupu (nie ma znaczenia jaki) sk≥aduje 1TB nowych danych kaødego dnia. Wykorzystujesz oczywiúcie Azure do tej operacji i chcesz dane sk≥adowaÊ jak najtaniej. Przez dwa lata nie kasujesz zebranych danych. Po dwÛch latach na prÛbÍ odtwarzasz dane z ostatniego dnia kaødego roku. Po 3 roku kasujesz dane, zebrane w roku pierwszym.
+#TYDZIE≈É5.3 Odpowied≈∫:
+‚ÄûLiczymy Koszty :). Um√≥wmy siƒô. Tw√≥j system backupu (nie ma znaczenia jaki) sk≈Çaduje 1TB nowych danych ka≈ºdego dnia. Wykorzystujesz oczywi≈õcie Azure do tej operacji i chcesz dane sk≈Çadowaƒá jak najtaniej. Przez dwa lata nie kasujesz zebranych danych. Po dw√≥ch latach na pr√≥bƒô odtwarzasz dane z ostatniego dnia ka≈ºdego roku. Po 3 roku kasujesz dane, zebrane w roku pierwszym.
 
- * Ile ≥πcznie wygenerujesz kosztÛw w ramach tej us≥ugi, jeúli rozwaøymy pe≥ny, 6 letni okres jej dzia≥ania.
- * Rozwaø rÛøne aspekty i rÛøne moøliwoúci us≥ug i pokaø jako algorytm liczenia przyjπ≥eú.
+ * Ile ≈ÇƒÖcznie wygenerujesz koszt√≥w w ramach tej us≈Çugi, je≈õli rozwa≈ºymy pe≈Çny, 6 letni okres jej dzia≈Çania.
+ * Rozwa≈º r√≥≈ºne aspekty i r√≥≈ºne mo≈ºliwo≈õci us≈Çug i poka≈º jako algorytm liczenia przyjƒÖ≈Çe≈õ.
 
 __________________
 Polityka backupu:
-- backup kaødego dnia (+1TB)
-- odtwarzanie kaødego roku backupu rocznego, pierwszy raz po dwÛch latach
-- usuwanie backupÛw starszych niø 1095 dni (3 lata) - (zak≥adam, ze w tym przypadku chodzi≥o o polise tranzycji danych niz samodzielne usuwanie duzych zbiorÛw danych)
+- backup ka≈ºdego dnia (+1TB)
+- odtwarzanie ka≈ºdego roku backupu rocznego, pierwszy raz po dw√≥ch latach
+- usuwanie backup√≥w starszych ni≈º 1095 dni (3 lata) - (zak≈Çadam, ze w tym przypadku chodzi≈Ço o polise tranzycji danych niz samodzielne usuwanie duzych zbior√≥w danych)
 
 Wyliczenia w scenariuszu PAYG (Pay-As-You-Go):
   Przyjeto :
-            rejon               : North Europe (obecnie najtaÒszy w Europie)
-            us≥uga              : Blob Stroage
-            poziom dostÍpnoúci  : Archive
+            rejon               : North Europe (obecnie najta≈Ñszy w Europie)
+            us≈Çuga              : Blob Stroage
+            poziom dostƒôpno≈õci  : Archive
             1TB                 : 1024GB
 
-obliczenia dla taryfikatora wed≥ug p≥atnoúci PAYG:
-CX - "srednia" cena z cennika za 1GB w wybranej us≥udze sk≥adowania przez jeden miesiac dla wybranego regionu oraz typu us≥ugi. 
-    Uwaga: Za "sredni" kalkulator kosztÛw przyjmuje okres 30 dni.
+obliczenia dla taryfikatora wed≈Çug p≈Çatno≈õci PAYG:
+CX - "srednia" cena z cennika za 1GB w wybranej us≈Çudze sk≈Çadowania przez jeden miesiac dla wybranego regionu oraz typu us≈Çugi. 
+    Uwaga: Za "sredni" kalkulator koszt√≥w przyjmuje okres 30 dni.
     CX = 0,00099$
-DXG - koszt przechowywania 1GB przez 1 dzieÒ (CX/30)
+DXG - koszt przechowywania 1GB przez 1 dzie≈Ñ (CX/30)
     DXG = 0,000033$
-DXT - koszt przechowywania 1TB przez 1 dzieÒ (1024xDXG)
+DXT - koszt przechowywania 1TB przez 1 dzie≈Ñ (1024xDXG)
     DXT = 0,033792$
 TXY - koszt przechowywania 1TB danych przez rok (365xDXT). 
     TXY = 12,3341$
@@ -141,83 +141,83 @@ RX1 - koszt przechowywania 100TB danych przez 1 rok (100xTXY)
 RXY - koszt przechowywania 365TB danych przez 1 rok (365xTXY)
     RXY = 4501,9465$
 AX1 - koszt gromadzenia 100TB danych (po 1TB przez 100 dni) + koszt ich przechowywania w danym roku. 
-        Koszt zosta≥ policzony wg wzoru na sumÍ ciπgu (kazdy dodany 1TB jest skladowany o dzien krocej od poprzednika):
+        Koszt zosta≈Ç policzony wg wzoru na sumƒô ciƒÖgu (kazdy dodany 1TB jest skladowany o dzien krocej od poprzednika):
     AX1 = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(265/365)
     AX1 = 1066,14$
 AXY - koszt gromadzenia 365TB danych (po 1TB przez 365 dni) + koszt ich przechowywania w danym roku. 
-        Koszt zosta≥ policzony wg wzoru na sumÍ ciπgu (kazdy nastepny 1TB jest skladowany o dzien krocej w roku):
+        Koszt zosta≈Ç policzony wg wzoru na sumƒô ciƒÖgu (kazdy nastepny 1TB jest skladowany o dzien krocej w roku):
     AXY = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(1/365)
     AXY = 2257,14$
-GX - koszt gromadzenia i sk≥adowania 1095TB danych przez trzy pierwsze lata. 
+GX - koszt gromadzenia i sk≈Çadowania 1095TB danych przez trzy pierwsze lata. 
     GX = AXY + (AXY+RXY) + (AXY+2xRXY) = 3xAXY + 3xRXY = 6769,17$ + 13505,79$
     GX = 20274,96$
 
-HXY - koszt sk≥adowania 1095TB danych przez rok (1095xTXY)
+HXY - koszt sk≈Çadowania 1095TB danych przez rok (1095xTXY)
     HXY = 13505,84$
-HX3 - koszt sk≥adowania 1095TB (3x365) danych przez 3 lata (3xHXY)
+HX3 - koszt sk≈Çadowania 1095TB (3x365) danych przez 3 lata (3xHXY)
     HX3 = 40517,52$
-WX - koszt ca≥kowity gromadzenia i sk≥adowania 1095TB danych przez 6lat
+WX - koszt ca≈Çkowity gromadzenia i sk≈Çadowania 1095TB danych przez 6lat
     WX = HX3 + GX = 60792,48$
     
-Ca≥kowity koszt sk≥adowania za≥oøonej iloúci danych zamyka siÍ w kwocie 60792,48$. 
+Ca≈Çkowity koszt sk≈Çadowania za≈Ço≈ºonej ilo≈õci danych zamyka siƒô w kwocie 60792,48$. 
 
-Aby uzyskaÊ oszczednoúci z tej kwoty naleøy przeprowadziÊ symulacje kosztÛw w przedzialach czasowych oraz estymowanych kosztach rezerwacji.
-Dodatkowo aby miec porÛnanie do rezerwacji na 1PB naleøa≥o oblyiczyÊ koszt gromadzenie 1PB danych.
-GX1 - koszt gromadzenia i sk≥adowania 1PB danych w ciagu pierwszych trzech lat.  
-    AX4 = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(71/365) = 2173,17$  (gdyø 1095-1024=71)
+Aby uzyskaƒá oszczedno≈õci z tej kwoty nale≈ºy przeprowadziƒá symulacje koszt√≥w w przedzialach czasowych oraz estymowanych kosztach rezerwacji.
+Dodatkowo aby miec por√≥nanie do rezerwacji na 1PB nale≈ºa≈Ço oblyiczyƒá koszt gromadzenie 1PB danych.
+GX1 - koszt gromadzenia i sk≈Çadowania 1PB danych w ciagu pierwszych trzech lat.  
+    AX4 = TXY + TXY(364/365) + TXY(363/365) + ........ + TXY(71/365) = 2173,17$  (gdy≈º 1095-1024=71)
     GX1 = AXY + (AXY+RXY) + (AX4+2xRXY) = 2xAXY + 3xRXY + AX4
     GX1 = 4514,28$ + 13505,8395$ + 2173,17$
     GX1 = 20193,29$
 
-rÛznica miedzy zebraniem 1PB a 1095TB (GX-GX1) wynosi 81,67$
+r√≥znica miedzy zebraniem 1PB a 1095TB (GX-GX1) wynosi 81,67$
 
-                                        |PAYG 1-year    | 1-year FU reservation |ROØNICA
+                                        |PAYG 1-year    | 1-year FU reservation |RO≈ªNICA
 ----------------------------------------|---------------|-----------------------|----------
 koszt gromadzenia 100TB                 | 1066,14$      | 1083,00$              |  -16,86$
-Koszt sk≥adowania 100TB                 | 1223,33$      | 1083,00$              |  140,00$
+Koszt sk≈Çadowania 100TB                 | 1223,33$      | 1083,00$              |  140,00$
 Koszt gromadzenia 200TB                 | 1794,36$      | 2166,00$              | -371,64$
 Koszt gromadzenia 300TB                 | 2186,85$      | 3249,00$              |-1062,15$
 Koszt gromadzenia 365TB                 | 2257,14$      | 4332,00$              |-2074,86$
 koszt gromadzenia 1PB                   |N/A            |10589,00$              |N/A
-Koszt sk≥adowania 1PB                   |12630,09$      |10589,00$              | 2041,09$
+Koszt sk≈Çadowania 1PB                   |12630,09$      |10589,00$              | 2041,09$
 
 
-                                        |PAYG 3-year    | 3-year FU reservation |ROØNICA
+                                        |PAYG 3-year    | 3-year FU reservation |RO≈ªNICA
 ----------------------------------------|---------------|-----------------------|---------
 koszt gromadzenia (pierwszych) 100TB    | 3512,80$      | 2993,00$              |  519,80$
 koszt gromadzenia (pierwszych) 200TB    | 6687,68$      | 5986,00$              |  701,86$
 koszt gromadzenia (pierwszych) 300TB    | 9526,83$      | 8979,00$              |  547,83$
 koszt gromadzenia (pierwszych) 400TB    |11692,71$      |11972,00$              | -279,28$ 
 koszt gromadzenia 1PB                   |20193,29$      |29150,00$              |-8956,71$
-Koszt sk≥adowania 100TB                 | 3670,23$      | 2993,00$              |  677,33$
-Koszt sk≥adowania 200TB                 | 7340,46$      | 5986,00$              | 1354,46$
-Koszt sk≥adowania 300TB                 |11010,69$      | 8979,00$              | 2031,69$
-Koszt sk≥adowania 1PB                   |37890,65$      |29150,00$              | 8740,65$
+Koszt sk≈Çadowania 100TB                 | 3670,23$      | 2993,00$              |  677,33$
+Koszt sk≈Çadowania 200TB                 | 7340,46$      | 5986,00$              | 1354,46$
+Koszt sk≈Çadowania 300TB                 |11010,69$      | 8979,00$              | 2031,69$
+Koszt sk≈Çadowania 1PB                   |37890,65$      |29150,00$              | 8740,65$
 
 koszt skladowania 1095TB w PAYG przez 71 dni
 2627,16$
-koszt sk≥adowania 71TB w PAYG przez 3 lata
+koszt sk≈Çadowania 71TB w PAYG przez 3 lata
 2605,69$
 granica oplacalnosci zakladania rezerwacji FU na 100TB na 1 rok
 88TB
 granica oplacalnosci zakladania rezerwacji FU na 100TB na 3lata
 81TB
 
-Jak widaÊ najwieksze rÛznice uzyskujemy przy rezerwacjach trzyletnich. Natomiast, w przypadku pierwszych trzech lat sensowne wydaje sie byÊ zaloøenie 
-rezerwacji trzyletnich na pierwsze 200TB danych i nastepnie na pojawiajπce siÍ pe≥ne 100TB (pe≥ne w sensie roku kalendarzowego) zak≥adanie 
+Jak widaƒá najwieksze r√≥znice uzyskujemy przy rezerwacjach trzyletnich. Natomiast, w przypadku pierwszych trzech lat sensowne wydaje sie byƒá zalo≈ºenie 
+rezerwacji trzyletnich na pierwsze 200TB danych i nastepnie na pojawiajƒÖce siƒô pe≈Çne 100TB (pe≈Çne w sensie roku kalendarzowego) zak≈Çadanie 
 rezerwacji 1-dno rocznych. 
 Moja propozycja planu wykupu rezerwacji:
- 1. przed rozpoczÍciem, wykupienie rezerwacji FU 3 letnich na 2x100TB w ten sposÛb odzyskamy z ogÛlnego rachunku     :  701,86$
- 2. po 1-szym roku wykupienie 1 rezerwacji FU 1 rocznych na 100TB w ten sposÛb odzyskamy z ogÛlnego rachunku         :  140,00$
- 3. po 2-Ûch latach wykupienie 5 rezerewacji FU 1 rocznych na 100TB w ten sposÛb odzyskamy z ogÛlnego rachunku       :  700,00$
- 4. po trzech latach wykupienie 1 rezerwacji FU na 3 lata na 1PB w ten sposÛb odzyskamy z ogÛlnego rachunku          : 8740,65
- 5. rÛønica wynikajπca 1PB i 1095TB (71TB) musi byc op≥acona w trybie PAYG, 
-    gdyø jest pod progiem op≥acalnoúci wykupu rezerwacji (81TB)
+ 1. przed rozpoczƒôciem, wykupienie rezerwacji FU 3 letnich na 2x100TB w ten spos√≥b odzyskamy z og√≥lnego rachunku     :  701,86$
+ 2. po 1-szym roku wykupienie 1 rezerwacji FU 1 rocznych na 100TB w ten spos√≥b odzyskamy z og√≥lnego rachunku         :  140,00$
+ 3. po 2-√≥ch latach wykupienie 5 rezerewacji FU 1 rocznych na 100TB w ten spos√≥b odzyskamy z og√≥lnego rachunku       :  700,00$
+ 4. po trzech latach wykupienie 1 rezerwacji FU na 3 lata na 1PB w ten spos√≥b odzyskamy z og√≥lnego rachunku          : 8740,65
+ 5. r√≥≈ºnica wynikajƒÖca 1PB i 1095TB (71TB) musi byc op≈Çacona w trybie PAYG, 
+    gdy≈º jest pod progiem op≈Çacalno≈õci wykupu rezerwacji (81TB)
  
 Sumarycznie z rachunku PAYG odzyskujemy 10282,51$
-koszt sk≥adowania naszych danych zamyka siÍ w tym przypadku w kwocie 50†509,97$.
+koszt sk≈Çadowania naszych danych zamyka siƒô w tym przypadku w kwocie 50¬†509,97$.
 
-Ponadto zadanie wspomina o cyklicznym testowaniu backupÛw rocznych, ktÛre rozpoczyna siÍ po pierwszych dwÛch latach.
-Wynika z tego, ze w okresie 6 lat odbeda siÍ co najmniej 4 takie akcje.
-Koszt jednej bedzie g≥Ûwnie kosztem sciπgniecia 1TB z chmury Azure czyli 22,53$. 
-Sumarycznie za wszystkie akcje wyjdzie 90,12$
+Ponadto zadanie wspomina o cyklicznym testowaniu backup√≥w rocznych, kt√≥re rozpoczyna siƒô po pierwszych dw√≥ch latach.
+Wynika z tego, ze w okresie 6 lat odbeda siƒô co najmniej 4 takie akcje.
+Koszt jednej bedzie g≈Ç√≥wnie kosztem sciƒÖgniecia 1TB z chmury Azure czyli 22,53$. 
+Sumarycznie za wszystkie akcje testowania backupu wyjdzie 90,12$
