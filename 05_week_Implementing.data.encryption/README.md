@@ -35,11 +35,11 @@
         $KEKName = $KVName + '-kek001'
         az keyvault key create --name $KEKName --vault-name $KVName --kty RSA
     
-    b. enable custom encryption using KEK:
+    b. Enable custom encryption using KEK:
         
         az vm encryption enable -g $RGName --name $VMName --disk-encryption-keyvault $KVName --key-encryption-key $KEKName
 
-    c. wait till encryption finish
+    c. Wait till encryption finish
         
         az vm encryption show -g $RGName --name $VMname
         az vm encryption show -g $RGName --name $VMnameW
@@ -68,21 +68,19 @@
             ProgressMessage            : [2.2.0.37]
         "
     Note: After logging in to the Windows' console the Bitlocker's app shows status : "encrypting". It took about 30 minutes to fully encrypt OS drive.
+          Meanwhile, on VM with linux the system is not accessible until OS' drive is not fully encrypted.
             
 5. Deploy VM with Windows Server 2016 
     
-    a. deploy Windows Server 2016 with capability to run Hyper-V
-    
-       Note: only v3 (and above) series of Azure VMs support nested virtualization.
-
-
         $VMNameW1 = ($RGName + '-neu-win2016-001').Replace('-','')
         $VMNameW1 = $VMNameW.Substring($VMNameW.Length - 15)
         $VMusername = Read-Host -Prompt "Enter the virtual machine administrator name"
         $VMpassword = Read-Host -Prompt "Enter the virtual machine administrator password" -AsSecureString
 
         az vm create --resource-group $RGName --name $VMNameW1 --image 'MicrosoftWindowsServer:WindowsServer:2016-Datacenter:latest' --admin-username $VMusername --admin-password ($VMpassword | ConvertFrom-SecureString -AsPlainText) --location $Region --size 'Standard_D2s_v3'
-        
+    
+    Note: only v3 (and above) series of Azure VMs support nested virtualization.
+    
 6. Install Hyper-V
     
        Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
