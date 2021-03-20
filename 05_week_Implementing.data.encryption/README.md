@@ -1,12 +1,14 @@
-$RGName = 'vanl-e-neu-7006'
-$Region = "northeurope"
+    $RGName = 'vanl-e-neu-7006'
+    $Region = "northeurope"
 
 
 1. Create KV 
+
     $KVName = ($RGName + 'neukv001').Replace('-','')
     az keyvault create --name $KVName --resource-group $RGName --location $Region --enabled-for-disk-encryption
 
-2. create simple VM (with Ubuntu)
+2. Create simple VM (with Ubuntu)
+
     Full list of linux distributions which are comaptible with Azure Disk Encryption is under this link:
     https://docs.microsoft.com/pl-pl/azure/virtual-machines/linux/disk-encryption-overview#supported-operating-systems
     
@@ -15,28 +17,35 @@ $Region = "northeurope"
     $VMpassword = Read-Host -Prompt "Enter the virtual machine administrator password" -AsSecureString
     
     Ubuntu:
+        
         az vm create --resource-group $RGName --name $VMName --image 'Canonical:UbuntuServer:18.04-LTS:latest' --admin-username $VMusername --admin-password ($VMpassword | ConvertFrom-SecureString -AsPlainText) --location $Region --size 'Standard_B2ms'
     
     Note about Linux size : 8GB RAM is needed for Azure Disk Encryption!
     
     Windows 2016:
+        
         $VMNameW = ($RGName + '-neu-win2016-001').Replace('-','')
         $VMNameW = $VMNameW.Substring($VMNameW.Length - 15)
         az vm create --resource-group $RGName --name $VMNameW --image 'MicrosoftWindowsServer:WindowsServer:2016-Datacenter:latest' --admin-username $VMusername --admin-password ($VMpassword | ConvertFrom-SecureString -AsPlainText) --location $Region --size 'Standard_B2ms'
         
 3. Encrypt VMs volume 
+
     a. Create KEK for VM volumes encryption (Key Encryption Key)
+    
         $KEKName = $KVName + '-kek001'
         az keyvault key create --name $KEKName --vault-name $KVName --kty RSA
     
     b. enable custom encryption using KEK:
+        
         az vm encryption enable -g $RGName --name $VMName --disk-encryption-keyvault $KVName --key-encryption-key $KEKName
 
     c. wait till encryption finish
+        
         az vm encryption show -g $RGName --name $VMname
         az vm encryption show -g $RGName --name $VMnameW
         
 4. VMs volume custom encryption is enabled.
+    
     Get-AzVMDiskEncryptionStatus -ResourceGroupName $RGName -VMName $VMname
     
     Ubuntu VM's response:"
@@ -49,6 +58,7 @@ $Region = "northeurope"
         }
     ]
     "
+    
     Windows 2016's response:"
     
         OsVolumeEncrypted          : Encrypted
@@ -59,6 +69,7 @@ $Region = "northeurope"
     Note: After logging in to the Windows' console the Bitlocker's app shows status : "encrypting". It took about 30 minutes to fully encrypt OS drive.
             
 5. Deploy VM with Windows Server 2016 
+    
     a. deploy Windows Server 2016 with capability to run Hyper-V
     
        Note: only v3 (and above) series of Azure VMs support nested virtualization.
@@ -72,7 +83,8 @@ $Region = "northeurope"
         az vm create --resource-group $RGName --name $VMNameW1 --image 'MicrosoftWindowsServer:WindowsServer:2016-Datacenter:latest' --admin-username $VMusername --admin-password ($VMpassword | ConvertFrom-SecureString -AsPlainText) --location $Region --size 'Standard_D2s_v3'
         
 6. Install Hyper-V
-        Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
+    
+   Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 
 7. Prepare disk for export 
         On the left menu, select Virtual Machines, and select the VM from the list. Then, on the overview page for the VM, select Stop.
@@ -87,6 +99,7 @@ $Region = "northeurope"
             Invoke-WebRequest -Uri $source -OutFile $destination
             
 8. Create VM in Hyper-V using downloaded VHD image
+   
         New-VM -Name 'NEWone' -VHDPath C:\temp\abcd.vhd -Generation 1 -MemoryStartupBytes 2GB
         Start-VM 'NEWOne'
     
