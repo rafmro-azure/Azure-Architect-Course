@@ -86,22 +86,22 @@
        Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 
 7. Prepare disk for export 
-        On the left menu, select Virtual Machines, and select the VM from the list. Then, on the overview page for the VM, select Stop.
-        When VM fully stops, select Disks. Then pick encrypted OS disk and when new window pop-ups select Disk Export. 
-        Hit Generate URL and copy URL to clipboard.
-    
-        Download VHD to Windows Server:
-        
+       On the left menu, select Virtual Machines, and select the VM from the list. Then, on the overview page for the VM, select Stop.
+       When VM fully stops, select Disks. Then pick encrypted OS disk and when new window pop-ups select Disk Export. 
+       Hit Generate URL and copy URL to clipboard.
+       After that, on Windows Server open powershell and run following cmdlets:
+       
             $ProgressPreference = 'SilentlyContinue' #otherwise the download process will be slow like a snail :) It's so called "progress bar's issue" and it is not solved since 2010 ;)
             $source = 'put_there_a_generated_earlier_link_for_VHD_disk_image'
             $destination = 'c:\temp\1.vhd'
             Invoke-WebRequest -Uri $source -OutFile $destination
+            $ProgressPreference = 'Continue'
             
 8. Create VM in Hyper-V using downloaded VHD image
    
         New-VM -Name 'NEWone' -VHDPath C:\temp\abcd.vhd -Generation 1 -MemoryStartupBytes 2GB
         Start-VM 'NEWOne'
     
-    VM cannot boot properly.
-    As a result we should get effect simialr to captured on this picture:
-    https://github.com/rafmro-azure/Azure-Architect-Course/blob/main/05_week_Implementing.data.encryption/VM_on_hyperV_from_ADE_VHD.JPG
+    But VM cannot boot properly :( As a result we should get effect simialr to captured on this picture:
+    
+        https://github.com/rafmro-azure/Azure-Architect-Course/blob/main/05_week_Implementing.data.encryption/VM_on_hyperV_from_ADE_VHD.JPG
