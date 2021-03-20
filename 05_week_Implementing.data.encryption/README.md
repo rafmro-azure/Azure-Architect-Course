@@ -90,10 +90,6 @@ $Region = "northeurope"
         New-VM -Name 'NEWone' -VHDPath C:\temp\abcd.vhd -Generation 1 -MemoryStartupBytes 2GB
         Start-VM 'NEWOne'
     
-    VM should not boot properly. There is no way to provide keys to decrypt disk content.
-    As a result we should get effect as this picture:
-    http;//
-
-
-
-
+    VM cannot boot properly.
+    As a result we should get effect simialr to captured on this picture:
+    https://github.com/rafmro-azure/Azure-Architect-Course/blob/main/05_week_Implementing.data.encryption/VM_on_hyperV_from_ADE_VHD.JPG
