@@ -4,17 +4,17 @@
 
 1. Create KV 
 
-    $KVName = ($RGName + 'neukv001').Replace('-','')
-    az keyvault create --name $KVName --resource-group $RGName --location $Region --enabled-for-disk-encryption
+        $KVName = ($RGName + 'neukv001').Replace('-','')
+        az keyvault create --name $KVName --resource-group $RGName --location $Region --enabled-for-disk-encryption
 
 2. Create simple VM (with Ubuntu)
 
     Full list of linux distributions which are comaptible with Azure Disk Encryption is under this link:
     https://docs.microsoft.com/pl-pl/azure/virtual-machines/linux/disk-encryption-overview#supported-operating-systems
     
-    $VMName = $RGName + '-neu-ubuntu001'
-    $VMusername = Read-Host -Prompt "Enter the virtual machine administrator name"
-    $VMpassword = Read-Host -Prompt "Enter the virtual machine administrator password" -AsSecureString
+        $VMName = $RGName + '-neu-ubuntu001'
+        $VMusername = Read-Host -Prompt "Enter the virtual machine administrator name"
+        $VMpassword = Read-Host -Prompt "Enter the virtual machine administrator password" -AsSecureString
     
     Ubuntu:
         
@@ -48,24 +48,25 @@
     
     Get-AzVMDiskEncryptionStatus -ResourceGroupName $RGName -VMName $VMname
     
-    Ubuntu VM's response:"
-    [
-        {
-            "code": "ComponentStatus/Microsoft.Azure.Security.AzureDiskEncryptionForLinux/succeeded",
-            "level": "Info",
-            "displayStatus": "Provisioning succeeded",
-            "message": "{\"os\": \"Encrypted\", \"data\": \"NotMounted\"}"
-        }
-    ]
-    "
+    Ubuntu VM's response:
     
-    Windows 2016's response:"
+        [
+            {
+                "code": "ComponentStatus/Microsoft.Azure.Security.AzureDiskEncryptionForLinux/succeeded",
+                "level": "Info",
+                "displayStatus": "Provisioning succeeded",
+                "message": "{\"os\": \"Encrypted\", \"data\": \"NotMounted\"}"
+            }
+        ]
     
-        OsVolumeEncrypted          : Encrypted
-        DataVolumesEncrypted       : NoDiskFound
-        OsVolumeEncryptionSettings : Microsoft.Azure.Management.Compute.Models.DiskEncryptionSettings
-        ProgressMessage            : [2.2.0.37]
-    "
+    Windows 2016's response:
+        "
+
+            OsVolumeEncrypted          : Encrypted
+            DataVolumesEncrypted       : NoDiskFound
+            OsVolumeEncryptionSettings : Microsoft.Azure.Management.Compute.Models.DiskEncryptionSettings
+            ProgressMessage            : [2.2.0.37]
+        "
     Note: After logging in to the Windows' console the Bitlocker's app shows status : "encrypting". It took about 30 minutes to fully encrypt OS drive.
             
 5. Deploy VM with Windows Server 2016 
@@ -84,7 +85,7 @@
         
 6. Install Hyper-V
     
-   Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
+       Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 
 7. Prepare disk for export 
         On the left menu, select Virtual Machines, and select the VM from the list. Then, on the overview page for the VM, select Stop.
